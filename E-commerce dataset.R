@@ -45,7 +45,7 @@ e_commerce_sales_by_month <- e_commerce %>%
   arrange(desc(Total_Sales))
 e_commerce_sales_by_month
 
-
+#Total sales by day of the week
 e_commerce_sales_by_dayoftheweek <- e_commerce %>%
   group_by(day_of_the_week) %>%
   summarize(Total_Sales = sum(`Final_Price(Rs.)`), 
@@ -86,7 +86,7 @@ ggplot(data = e_commerce_sales_by_month) +
 
 
 
-# Assuming e_commerce_sales_by_month is your data frame with a 'month' column in "YYYY-MM" format
+# Visualize e_commerce_sales_by_month with a 'month' column in "YYYY-MM" format
 e_commerce_sales_by_month <- e_commerce %>%
   mutate(month = format(Purchase_Date, "%Y-%m")) %>%
   group_by(month) %>%
@@ -104,7 +104,7 @@ ggplot(e_commerce_sales_by_month, aes(x = as.Date(paste0(month, "-01")), y = Tot
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
-# Create a bar plot to visualize sales by category
+# bar plot to visualize sales by category
 ggplot(e_commerce_sales_by_category, aes(x = reorder(Category, Total_Sales), y = Total_Sales)) +
   geom_bar(stat = "identity", fill = "steelblue") +
   labs(title = "Total Sales by Product Category",
@@ -113,11 +113,12 @@ ggplot(e_commerce_sales_by_category, aes(x = reorder(Category, Total_Sales), y =
   coord_flip() +  # Flip coordinates for better readability
   theme_minimal()
 
-# Create a bar plot for the count of payment methods
+# bar plot for the count of payment methods
 ggplot(data = e_commerce, aes(x = (Payment_Method)))+
   geom_bar(fill = "purple", color = "white") +
   labs(title = "Count of Payment Method",
        x = "Payment Method",
        y = "Payment Count")+
   theme_minimal()
+
 
